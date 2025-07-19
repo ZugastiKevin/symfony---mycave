@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ userUpdateForm ? 'Modification du compte'|trans : 'Création de compte'|trans }}{% endblock %}
+
+{% block body %}
+    <div id="form">
+        <div class="form">
+            <div class="mix">
+                <figure>
+                    <img src="{{ userUpdateForm ? asset('images/upload/updateAccount.jpg') :  asset('images/upload/createAccount.jpg') }}" alt="">
+                </figure>
+
+                <div class="headline">
+                    <h2 class="text-headline">My Cave</h2>
+                    <h3 class="text-subheadline">{{ userUpdateForm ? 'update_account'|trans : 'create_account'|trans }}</h3>
+                </div>
+            </div>
+            {{ form_start(userCreateForm, { attr: { class: 'all-form' } }) }}
+                <span>
+                    <label for="{{ userCreateForm.userName.vars.id }}">
+                        {{ 'username'|trans }}
+                    </label>
+                    {% if userUpdateForm %}
+                        {{ form_widget(userCreateForm.userName, {
+                            attr: {
+                                'data-original': userCreateForm.userName.vars.value
+                            }
+                        }) }}
+                        <button type="button" class="reset-btn">↩</button>
+                    {% else %}
+                        {{ form_widget(userCreateForm.userName) }}
+                    {% endif %}
+                </span>
+                <span>
+                    <label for="{{ userCreateForm.email.vars.id }}">
+                        {{ 'email'|trans }}
+                    </label>
+                    {% if userUpdateForm %}
+                        {{ form_widget(userCreateForm.email, {
+                            attr: {
+                                'data-original': userCreateForm.email.vars.value
+                            }
+                        }) }}
+                        <button type="button" class="reset-btn">↩</button>
+                    {% else %}
+                        {{ form_widget(userCreateForm.email) }}
+                    {% endif %}
+                </span>
+                <span>
+                    <label for="{{ userCreateForm.plainPassword.vars.id }}">
+                        {{ 'password'|trans }}
+                    </label>
+                    {{ form_widget(userCreateForm.plainPassword) }}
+                </span>
+
+                <input class="btn btn-lg btn-primary" type="submit" value="{{ 'submit'|trans }}">
+            {{ form_end(userCreateForm) }}
+        </div>
+    </div>
+{% endblock %}

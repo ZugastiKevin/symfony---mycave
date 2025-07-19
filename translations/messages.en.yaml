@@ -1,0 +1,31 @@
+username: Username
+logout: Logout
+login: Login
+sign_in: Log in
+register: Create account
+registration: Sign up
+update_account: Update account
+create_account: Create account
+email: Email address
+password: Password
+confirm_password: Confirm password
+remember_me: Remember me
+forgot_password: Forgot your password?
+submit: Submit
+save: Save
+cancel: Cancel
+delete: Delete
+profile: Profile
+account: Account
+welcome: Welcome
+welcome_back: Welcome back
+logged_in_as: Logged in as
+not_logged_in: You are not logged in
+error: Error
+success: Success
+invalid_credentials: Invalid credentials
+csrf_token_invalid: Invalid CSRF token
+username_not_found: User not found
+password_too_short: Password is too short
+form_error: Please correct the form errors
+please_login: Please log in

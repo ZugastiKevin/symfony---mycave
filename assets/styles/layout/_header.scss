@@ -1,0 +1,77 @@
+@use "../abstracts/variables" as variable;
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .header {
+        width: 100%;
+        max-height: 158px;
+
+        .logo-container {
+            width: 7%;
+            min-width: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .list-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+    }
+}
+
+@media screen and (min-width:1921px) {  
+    #header {
+        .header {
+            .logo-container {
+                width: 3%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1250px) {  
+    #header {
+        .header {
+
+        }
+    }
+}
+
+@media screen and (max-width:768px) {  
+    #header {
+        .header {
+            .logo-container {
+
+            }
+            .list-container {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:525px) {
+    #header {
+        .header {
+            
+        }
+    }
+}
+
+@media screen and (max-width:453px) {
+    #header {
+        .header {
+           
+        }
+    }
+}

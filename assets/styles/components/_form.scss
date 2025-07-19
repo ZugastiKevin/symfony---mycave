@@ -1,0 +1,218 @@
+@use "sass:color";
+@use "../abstracts/variables" as variable;
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  33% { transform: translateX(-6px); }
+  66% { transform: translateX(6px); }
+  100% { transform: translateX(0);}
+}
+
+#form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: variable.$color-wine;
+    padding: 1rem;
+
+    .form {
+        position: relative;
+        width: 90%;
+        max-width: 1200px;
+        display: flex;
+        overflow: hidden;
+        color: variable.$color-text-white;
+        border-radius: 0.5rem;
+        background: variable.$color-white;
+        box-shadow: 0 6px 22px rgba(255, 255, 255, 0.3);
+        max-height: 500px;
+
+        .alert {
+            background-color: color.adjust(variable.$color-rose, $lightness: -10%);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-align: center;
+            a {
+                color: color.adjust(variable.$color-rose, $lightness: +20%);
+                text-decoration: underline;
+            }
+        }
+        .mb-3:hover {
+            color: variable.$color-white;
+        }
+
+        .mix {
+            position: relative;
+            width: 50%;
+            overflow: hidden;
+
+            figure {
+                width: 100%;
+                img {
+                    height: 500px;
+                }
+            }
+
+            .headline {
+                position: absolute; 
+                top: 8%; 
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 1rem;
+                border-radius: 1rem;
+                color: white;
+                width: 60%;
+
+                mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+                mask-repeat: no-repeat;
+                mask-size: 100% 100%;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: 100% 100%;
+
+                .text-headline {
+                    color: variable.$color-wine;
+                    font-size: 1.6rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4rem;
+                }
+                .text-subheadline {
+                    color: variable.$color-rose;
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.14rem;
+                    text-shadow: 2px 2px 2px variable.$color-magenta;
+                }
+            }
+        }
+
+        .all-form {
+            overflow: hidden;
+            padding: 10%;
+            position: relative;
+            width: 50%;
+
+            span {
+                display: block;
+                margin-bottom: 1.15rem;
+                position: relative;
+
+                label {
+                    color: variable.$color-wine;
+                    font-family: variable.$font-source-bold;
+                    font-size: 0.75rem;
+                    letter-spacing: .08rem;
+                    text-transform: uppercase;
+                    display: inline-block;
+                    transform: translateY(1.25rem);
+                    transition: 0.15s ease;
+                }
+
+                input {
+                    width: 100%;
+                    border: none;
+                    border-bottom: 2px solid variable.$color-magenta;
+                    font-family: variable.$font-source-bold;
+                    color: variable.$color-wine;
+                    background: none;
+                    padding: 0.3rem 0;
+                    outline: none;
+                }
+            }
+
+            input[type=submit] {
+                margin: 1em auto 0;
+                background: variable.$color-wine;
+                color: variable.$color-white;
+                border: none;
+                padding: 0.8rem 2rem;
+                font-family: variable.$font-source-bold;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            input[type=submit]:hover,
+            input[type=submit]:focus {
+                background: color.adjust(variable.$color-wine, $lightness: 10%);
+            }
+
+            .inputs--filled label {
+                transform: translate(0, 0);
+            }
+
+            .inputs--invalid input {
+                border-bottom: 4px solid variable.$color-rose;
+                color: variable.$color-rose;
+                animation: shake 0.3s both ease-in-out;
+            }
+
+            .inputs--invalid label {
+                color: variable.$color-rose;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1000px) {  
+    #form {
+        .form {
+            .mix {
+                .headline {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:768px) {  
+    #form {
+        width: 100%;
+        .form {
+            flex-direction: column;
+            max-height: 750px;
+
+            .mix {
+                width: 100%;
+            }
+
+            .all-form {
+                padding: 5%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                span {
+                    text-align: center;
+
+                    input {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:360px) {  
+    #form {
+        padding: 0;
+        .form {
+            width: 100%;
+        }
+    }
+}
