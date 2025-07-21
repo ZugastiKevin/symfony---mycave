@@ -45,6 +45,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $plainPassword = $form->get('plainPassword')->getData();
             if (!$user->getId()) {
                 $exist = $repository->findOneBy(['email' => $user->getEmail()]);
                 if ($exist) {
@@ -55,12 +56,10 @@ class SecurityController extends AbstractController
                 $user->setRoles(['ROLE_USER']);
                 $user->setCreatedAt(new \DateTimeImmutable());
                 $user->setPassword(
-                    $passwordEncoder->hashPassword($user, $form->get('password')->getData())
+                    $passwordEncoder->hashPassword($user, $plainPassword)
                 );
             }
 
-
-            $plainPassword = $form->get('plainPassword')->getData();
             if ($plainPassword) {
                 $user->setPassword(
                     $passwordEncoder->hashPassword($user, $plainPassword)

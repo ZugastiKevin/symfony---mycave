@@ -5,3 +5,5 @@ framework:
         providers:
         fallbacks:
             - fr
+    session:
+        enabled: true

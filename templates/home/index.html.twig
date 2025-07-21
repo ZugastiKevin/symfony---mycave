@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title_key %}home{% endblock %}
+{% block title %}{{ 'home'|trans }}{% endblock %}
+
+{% block body %}
+    <section id="home">
+        <div class="hero">
+            <video autoplay muted loop id="background-video">
+                <source src="{{ asset('video/vigne.mp4') }}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture de vidéos.
+            </video>
+            <div class="overlay"></div>
+            <div class="hero-content">
+                <h1>My Cave</h1>
+                <p>Gérez votre cave, partagez vos découvertes, échangez avec une communauté de passionnés. Le vin, plus qu’une passion : une expérience à vivre ensemble.</p>
+            </div>
+        </div>
+        <section id="Who-are-we">
+            <div class="Who-are-we">
+                <h2 data-i18n-key="who-are-we">{{ 'who-are-we'|trans }}</h2>
+                <p data-i18n-key="my-cave-description">{{ 'my-cave-description'|trans }}</p>
+                <h3 data-i18n-key="my-cave-join">{{ 'my-cave-join'|trans }}</h3>
+                <a href="{{ path('create_user') }}" data-i18n-key="create_account">{{ 'create_account'|trans }}</a>
+            </div>
+        </section>
+    </section>
+{% endblock %}

@@ -29,3 +29,11 @@ username_not_found: User not found
 password_too_short: Password is too short
 form_error: Please correct the form errors
 please_login: Please log in
+
+# home
+home: Home
+
+# hero-content
+who-are-we: Who are we ?
+my-cave-description: My Cave is more than just a wine cellar management tool – it’s a space for enthusiasts, the curious, collectors, and anyone who loves bringing their bottles to life and sharing them with others. Created by wine lovers, for wine lovers, My Cave allows you to catalog, track, and organize your wine cellar with precision. But beyond management, it's above all a growing community. Discover selections from other members, exchange tasting notes, share your favorites, and get inspired by cellars from around the world. Our mission, to offer a place where every bottle has a story, and every wine lover belongs.
+my-cave-join: Join My Cave and experience your passion for wine in great company.

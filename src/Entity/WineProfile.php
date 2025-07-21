@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\WineProfileRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: WineProfileRepository::class)]
+class WineProfile
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
+    private ?Types $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
+    private ?Bio $bio = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
+    private ?Sulfite $sulfite = null;
+
+    /**
+     * @var Collection<int, Bottles>
+     */
+    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfile')]
+    private Collection $bottles;
+
+    public function __construct()
+    {
+        $this->bottles = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getType(): ?Types
+    {
+        return $this->type;
+    }
+
+    public function setType(?Types $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getBio(): ?Bio
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?Bio $bio): static
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getSulfite(): ?Sulfite
+    {
+        return $this->sulfite;
+    }
+
+    public function setSulfite(?Sulfite $sulfite): static
+    {
+        $this->sulfite = $sulfite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bottles>
+     */
+    public function getBottles(): Collection
+    {
+        return $this->bottles;
+    }
+
+    public function addBottle(Bottles $bottle): static
+    {
+        if (!$this->bottles->contains($bottle)) {
+            $this->bottles->add($bottle);
+            $bottle->setWineProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBottle(Bottles $bottle): static
+    {
+        if ($this->bottles->removeElement($bottle)) {
+            // set the owning side to null (unless already changed)
+            if ($bottle->getWineProfile() === $this) {
+                $bottle->setWineProfile(null);
+            }
+        }
+
+        return $this;
+    }
+}

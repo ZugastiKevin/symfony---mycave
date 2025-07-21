@@ -29,3 +29,11 @@ username_not_found: Utilisateur introuvable
 password_too_short: Le mot de passe est trop court
 form_error: Veuillez corriger les erreurs du formulaire
 please_login: Veuillez vous connecter
+
+# home
+home: Accueil
+
+# hero-content
+who-are-we: Qui sommes-nous ?
+my-cave-description: My Cave est bien plus qu’un simple outil de gestion de cave à vin. C’est un espace dédié aux passionnés, aux curieux, aux collectionneurs et à tous ceux qui aiment faire vivre leurs bouteilles autant que les partager. Créé par des amateurs de vin, pour des amateurs de vin, My Cave vous permet de référencer, suivre et organiser votre cave en ligne avec précision. Mais au-delà de la gestion, c’est surtout une communauté qui se construit. Découvrez les sélections des autres membres, échangez vos impressions de dégustation, partagez vos coups de cœur et inspirez-vous des caves d’ailleurs. Notre mission, offrir un lieu où chaque bouteille a son histoire, et où chaque passionné trouve sa place.
+my-cave-join: Rejoignez My Cave, et vivez votre passion du vin en bonne compagnie.
