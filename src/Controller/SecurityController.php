@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Caves;
 use App\Form\UserTypeForm;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +59,10 @@ class SecurityController extends AbstractController
                 $user->setPassword(
                     $passwordEncoder->hashPassword($user, $plainPassword)
                 );
+
+                $cave = new Caves();
+                $cave->setUser($user);
+                $entityManager->persist($cave);
             }
 
             if ($plainPassword) {

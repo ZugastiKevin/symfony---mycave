@@ -18,15 +18,18 @@ class Cepages
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cepage')]
+    private ?Types $types = null;
+
     /**
-     * @var Collection<int, Origins>
+     * @var Collection<int, WineProfile>
      */
-    #[ORM\OneToMany(targetEntity: Origins::class, mappedBy: 'cepage')]
-    private Collection $origins;
+    #[ORM\OneToMany(targetEntity: WineProfile::class, mappedBy: 'cepage')]
+    private Collection $wineProfiles;
 
     public function __construct()
     {
-        $this->origins = new ArrayCollection();
+        $this->wineProfiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,30 +49,42 @@ class Cepages
         return $this;
     }
 
-    /**
-     * @return Collection<int, Origins>
-     */
-    public function getOrigins(): Collection
+    public function getTypes(): ?Types
     {
-        return $this->origins;
+        return $this->types;
     }
 
-    public function addOrigin(Origins $origin): static
+    public function setTypes(?Types $types): static
     {
-        if (!$this->origins->contains($origin)) {
-            $this->origins->add($origin);
-            $origin->setCepage($this);
+        $this->types = $types;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WineProfile>
+     */
+    public function getWineProfile(): Collection
+    {
+        return $this->wineProfiles;
+    }
+
+    public function addWineProfile(WineProfile $wineProfile): static
+    {
+        if (!$this->wineProfiles->contains($wineProfile)) {
+            $this->wineProfiles->add($wineProfile);
+            $wineProfile->setCepages($this);
         }
 
         return $this;
     }
 
-    public function removeOrigin(Origins $origin): static
+    public function removeWineProfile(WineProfile $wineProfile): static
     {
-        if ($this->origins->removeElement($origin)) {
+        if ($this->wineProfiles->removeElement($wineProfile)) {
             // set the owning side to null (unless already changed)
-            if ($origin->getCepage() === $this) {
-                $origin->setCepage(null);
+            if ($wineProfile->getCepages() === $this) {
+                $wineProfile->setCepages(null);
             }
         }
 

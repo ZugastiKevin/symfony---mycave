@@ -15,8 +15,8 @@ class Sulfite
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $sulfite = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isSulfite = null;
 
     /**
      * @var Collection<int, WineProfile>
@@ -36,12 +36,12 @@ class Sulfite
 
     public function isSulfite(): ?bool
     {
-        return $this->sulfite;
+        return $this->isSulfite;
     }
 
-    public function setSulfite(bool $sulfite): static
+    public function setIsSulfite(bool $isSulfite): static
     {
-        $this->sulfite = $sulfite;
+        $this->isSulfite = $isSulfite;
 
         return $this;
     }

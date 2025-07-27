@@ -15,6 +15,8 @@ submit: Valider
 save: Sauvegarder
 cancel: Annuler
 delete: Supprimer
+confirm_delete: Confirmer la suppression?
+update: Modifier
 profile: Profil
 account: Compte
 welcome: Bienvenue
@@ -30,10 +32,59 @@ password_too_short: Le mot de passe est trop court
 form_error: Veuillez corriger les erreurs du formulaire
 please_login: Veuillez vous connecter
 
+# warning video
+video: Votre navigateur ne supporte pas la lecture de vidéos.
+
+# navbar
+navbar:
+  my_cave: Ma cave
+  caves_list: Liste des caves
+
 # home
 home: Accueil
 
 # hero-content
+describe-title: Gérez votre cave, partagez vos découvertes, échangez avec une communauté de passionnés. Le vin, plus qu’une passion - une expérience à vivre ensemble.
 who-are-we: Qui sommes-nous ?
 my-cave-description: My Cave est bien plus qu’un simple outil de gestion de cave à vin. C’est un espace dédié aux passionnés, aux curieux, aux collectionneurs et à tous ceux qui aiment faire vivre leurs bouteilles autant que les partager. Créé par des amateurs de vin, pour des amateurs de vin, My Cave vous permet de référencer, suivre et organiser votre cave en ligne avec précision. Mais au-delà de la gestion, c’est surtout une communauté qui se construit. Découvrez les sélections des autres membres, échangez vos impressions de dégustation, partagez vos coups de cœur et inspirez-vous des caves d’ailleurs. Notre mission, offrir un lieu où chaque bouteille a son histoire, et où chaque passionné trouve sa place.
 my-cave-join: Rejoignez My Cave, et vivez votre passion du vin en bonne compagnie.
+
+# bottle
+create_bottle: Création de bouteille
+update_bottle: Modification de la bouteille
+bottle:
+  label: Nom de la bouteille
+  describ: Description
+  price: Prix
+  year: Année
+  volume: Teneur en alcool
+  cuntry: Pays
+  region: Region
+  producer: Producteur
+  grape: Cépage
+  type: Sélectionner un type de vin
+  bio: Vin biologique ?
+  sulfite: Contient des sulfites ?
+
+# form bottle placeholder
+form:
+  label:
+    min: Le nom doit contenir au moins {{ limit }} caractère.
+    max: Le nom ne peut pas dépasser {{ limit }} caractères.
+  year_placeholder: Millésime
+  invalid_type: Veuillez télécharger un fichier au format JPEG, JPG, PNG ou WEBP.
+  pays_placeholder: Sélectionner un pays
+  regions_placeholder: Sélectionner une région
+  types_placeholder: Sélectionner un type de vin
+  grapes_placeholder: Sélectionner un cepage
+  yes: Oui
+  no: Non
+  alcool: Saisir un nombre comme 12.5
+  describ:
+    describ_too_short: La description doit contenir au moins {{ limit }} caractère.
+    describ_too_long: La description ne peut pas dépasser {{ limit }} caractères.
+
+# cellar
+wine_profile.bio.label: Vin biologique
+wine_profile.sulfite.with: Avec sulfites
+wine_profile.sulfite.without: Sans sulfites

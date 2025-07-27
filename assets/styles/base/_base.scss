@@ -4,11 +4,16 @@
     box-sizing: border-box;
 }
 
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     position: relative;
     margin: 0px auto;
     font-family: variable.$font-source;
-    background: #F4F4F4;
+    background: variable.$color-wine;
     color: variable.$color-text-white;
 }
 

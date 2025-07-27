@@ -19,14 +19,14 @@ class Types
     private ?string $label = null;
 
     /**
-     * @var Collection<int, WineProfile>
+     * @var Collection<int, Cepages>
      */
-    #[ORM\OneToMany(targetEntity: WineProfile::class, mappedBy: 'type')]
-    private Collection $wineProfiles;
+    #[ORM\OneToMany(targetEntity: Cepages::class, mappedBy: 'types')]
+    private Collection $cepage;
 
     public function __construct()
     {
-        $this->wineProfiles = new ArrayCollection();
+        $this->cepage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,29 +47,29 @@ class Types
     }
 
     /**
-     * @return Collection<int, WineProfile>
+     * @return Collection<int, Cepages>
      */
-    public function getWineProfiles(): Collection
+    public function getCepage(): Collection
     {
-        return $this->wineProfiles;
+        return $this->cepage;
     }
 
-    public function addWineProfile(WineProfile $wineProfile): static
+    public function addCepage(Cepages $cepage): static
     {
-        if (!$this->wineProfiles->contains($wineProfile)) {
-            $this->wineProfiles->add($wineProfile);
-            $wineProfile->setType($this);
+        if (!$this->cepage->contains($cepage)) {
+            $this->cepage->add($cepage);
+            $cepage->setTypes($this);
         }
 
         return $this;
     }
 
-    public function removeWineProfile(WineProfile $wineProfile): static
+    public function removeCepage(Cepages $cepage): static
     {
-        if ($this->wineProfiles->removeElement($wineProfile)) {
+        if ($this->cepage->removeElement($cepage)) {
             // set the owning side to null (unless already changed)
-            if ($wineProfile->getType() === $this) {
-                $wineProfile->setType(null);
+            if ($cepage->getTypes() === $this) {
+                $cepage->setTypes(null);
             }
         }
 

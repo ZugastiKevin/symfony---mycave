@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Caves;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Caves::class, cascade: ['persist', 'remove'])]
+    private ?Caves $cave = null;
 
     /**
      * @var Collection<int, Bottles>
@@ -280,6 +284,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($rate->getUser() === $this) {
                 $rate->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getCave(): ?Caves
+    {
+        return $this->cave;
+    }
+
+    public function setCave(?Caves $cave): static
+    {
+        $this->cave = $cave;
+
+        if ($cave && $cave->getUser() !== $this) {
+            $cave->setUser($this);
         }
 
         return $this;

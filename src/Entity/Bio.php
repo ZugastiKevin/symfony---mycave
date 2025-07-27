@@ -15,8 +15,8 @@ class Bio
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $bio = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $isBio = null;
 
     /**
      * @var Collection<int, WineProfile>
@@ -36,12 +36,12 @@ class Bio
 
     public function isBio(): ?bool
     {
-        return $this->bio;
+        return $this->isBio;
     }
 
-    public function setBio(bool $bio): static
+    public function setIsBio(bool $isBio): static
     {
-        $this->bio = $bio;
+        $this->isBio = $isBio;
 
         return $this;
     }

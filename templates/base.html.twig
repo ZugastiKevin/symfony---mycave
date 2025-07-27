@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title data-i18n-key="{{ block('title_key') }}">{{ block('title') }}</title>
+        <title>{{ block('title') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
@@ -15,19 +15,60 @@
         {% endblock %}
     </head>
     <body>
+    {% set current = app.request.attributes.get('_route') %}
         <header id="header">
-            <nav class="header">
-                <div class="language-switcher">
-                    <ul>
-                        <li>
-                            <a href="#" data-change-locale="fr" hreflang="fr" lang="fr" class="{{ app.request.locale == 'fr' ? 'active' : '' }}">Français</a>
-                        </li>
-                        <li>
-                            <a href="#" data-change-locale="en" hreflang="en" lang="en" class="{{ app.request.locale == 'en' ? 'active' : '' }}">English</a>
-                        </li>
-                    </ul>
+            <div class="header">
+                <div class="logo-container {{ current == 'home' ? 'active' : '' }}">
+                    <a href="{{ path('home', {'_locale': app.request.locale}) }}"><img src="{{ asset('images/logo/mycave-logo.png') }}" alt="MyCave Logo"></a>
                 </div>
-            </nav>
+                {# <form class="navbar__search" action="{{ path('app_search') }}" method="get">
+                    <input type="text" name="q" placeholder="{{ 'search.placeholder'|trans }}">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2a7.5 7.5 0 010 15z" />
+                        </svg>
+                    </button>
+                </form> #}
+                <nav class="navbar__menu">
+                    <div class="list-container">
+                        <ul class="list-nav">
+                            {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="admin">
+                                        <li><a href="{{ path('admin', {'_locale': app.request.locale}) }}"><span class="{{ current starts with 'admin' ? 'active' : '' }}">{{ 'admin'|trans }}</span></a></li>
+                                    </div>
+                                {% endif %}
+                                <div class="security">
+                                    <li><a href="{{ path('app_logout', {'_locale': app.request.locale}) }}"><span>{{ 'logout'|trans }}</span></a></li>
+                                </div>
+                                <div class="cellar">
+                                    <li><a href="{{ path('cellar',{id: app.user.cave.id, '_locale': app.request.locale}) }}"><span class="{{ current == 'cellar' ? 'active' : '' }}">{{ 'navbar.my_cave'|trans }}</span></a></li>
+                                    <li><a href="{{ path('cellars', {'_locale': app.request.locale}) }}"><span class="{{ current == 'cellars' ? 'active' : '' }}">{{ 'navbar.caves_list'|trans }}</span></a></li>
+                                </div>
+                            {% else %}
+                                <div class="cellar">
+                                    <li><a href="{{ path('cellars', {'_locale': app.request.locale}) }}"><span class="{{ current == 'cellars' ? 'active' : '' }}">{{ 'navbar.caves_list'|trans }}</span></a></li>
+                                </div>
+                                <div class="security">
+                                    <li><a href="{{ path('app_login', {'_locale': app.request.locale}) }}"><span class="{{ current == 'app_login' ? 'active' : '' }}">{{ 'login'|trans }}</span></a></li>
+                                    <li><a href="{{ path('create_user', {'_locale': app.request.locale}) }}"><span class="{{ current == 'create_user' ? 'active' : '' }}">{{ 'registration'|trans }}</span></a></li>
+                                </div>
+                            {% endif %}
+                        </ul>
+                        <div class="language-switcher">
+                            <ul>
+                                <li>
+                                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}"><span class="{{ app.request.locale == 'fr' ? 'active' : '' }}">Français</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}"><span class="{{ app.request.locale == 'en' ? 'active' : '' }}">English</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </header>
         <main>
             {% block body %}{% endblock %}

@@ -15,6 +15,8 @@ submit: Submit
 save: Save
 cancel: Cancel
 delete: Delete
+confirm_delete: Confirm delete?
+update: Update
 profile: Profile
 account: Account
 welcome: Welcome
@@ -30,10 +32,59 @@ password_too_short: Password is too short
 form_error: Please correct the form errors
 please_login: Please log in
 
+# warning video
+video: Your browser does not support the video tag.
+
+# navbar
+navbar:
+  my_cave: My Cellar
+  caves_list: Cellar List
+
 # home
 home: Home
 
 # hero-content
+describe-title: Manage your cellar, share your discoveries, and connect with a community of wine lovers. Wine is more than a passion - it’s an experience to be shared.
 who-are-we: Who are we ?
 my-cave-description: My Cave is more than just a wine cellar management tool – it’s a space for enthusiasts, the curious, collectors, and anyone who loves bringing their bottles to life and sharing them with others. Created by wine lovers, for wine lovers, My Cave allows you to catalog, track, and organize your wine cellar with precision. But beyond management, it's above all a growing community. Discover selections from other members, exchange tasting notes, share your favorites, and get inspired by cellars from around the world. Our mission, to offer a place where every bottle has a story, and every wine lover belongs.
 my-cave-join: Join My Cave and experience your passion for wine in great company.
+
+# bottle
+create_bottle: Create Bottle
+update_bottle: Update Bottle
+bottle:
+  label: Bottle name
+  describ: Description
+  price: Price
+  year: Year
+  volume: Alcohol content
+  cuntry: Cuntry
+  region: Region
+  producer: Producer
+  grape: Grape variety
+  type: Select a wine type
+  bio: Organic wine ?
+  sulfite: Contains sulfites ?
+
+# form bottle placeholder
+form:
+  label:
+    min: The name must be at least {{ limit }} character long.
+    max: The name cannot be longer than {{ limit }} characters.
+  year_placeholder: Vintage
+  invalid_type: Please upload a file in JPEG, JPG, PNG or WEBP format.
+  pays_placeholder: Select a country
+  regions_placeholder: Select a region
+  types_placeholder: Select a wine type
+  cepages_placeholder: Select a grape variety
+  yes: Yes
+  no: No
+  alcool: Enter a number like 12.5
+  describ:
+    describ_too_short: The description must contain at least {{ limit }} character.
+    describ_too_long: The description cannot exceed {{ limit }} characters.
+
+# cellar
+wine_profile.bio.label: Organic wine
+wine_profile.sulfite.with: With sulfites
+wine_profile.sulfite.without: Sulfite-free

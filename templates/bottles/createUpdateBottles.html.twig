@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ botlleUpdateForm ? 'update_bottle'|trans : 'create_bottle'|trans }}{% endblock %}
+
+{% block body %}
+    <div id="form-bottle">
+        <div class="form-bottle">
+            <div class="form-content">
+                <div class="mix">
+                    <figure>
+                    {% if botlleUpdateForm and bottle.imageName %}
+                        <img src="{{ asset('images/upload/' ~ bottle.imageName) }}" alt="Image actuelle">
+                    {% else %}
+                        <img src="{{ botlleUpdateForm ? asset('images/form/updateBottle.jpg') :  asset('images/form/createBottle.jpg') }}" alt="">
+                    {% endif %}
+                    </figure>
+
+                    <div class="headline">
+                        <h2 class="text-headline">My Cave</h2>
+                        <h3 class="text-subheadline">{{ botlleUpdateForm ? 'update_bottle'|trans : 'create_bottle'|trans }}</h3>
+                    </div>
+                </div>
+                {{ form_start(botlleCreateForm, { attr: { class: 'all-form' } }) }}
+                    <div class="left">
+                        <span>
+                            <label for="{{ botlleCreateForm.label.vars.id }}">
+                                {{ 'bottle.label'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.label, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.label.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.label) }}
+                            {% endif %}
+                        </span>
+                        <span>
+                            <label for="{{ botlleCreateForm.producer.vars.id }}">
+                                {{ 'bottle.producer'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.producer, {
+                                    attr: { 'data-original': botlleCreateForm.producer.vars.value }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.producer) }}
+                            {% endif %}
+                        </span>
+                        <span>
+                            <label for="{{ botlleCreateForm.price.vars.id }}">
+                                {{ 'bottle.price'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.price, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.price.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.price) }}
+                            {% endif %}
+                        </span>
+                        <span class="selecte">
+                            <label for="{{ botlleCreateForm.years.vars.id }}">
+                                {{ 'bottle.year'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.years, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.years.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.years) }}
+                            {% endif %}
+                        </span>
+                        <span class="number">
+                            <label for="{{ botlleCreateForm.volume.vars.id }}">
+                                {{ 'bottle.volume'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.volume, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.volume.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.volume) }}
+                            {% endif %}
+                        </span>
+                        <span class="selecte">
+                            <label for="{{ botlleCreateForm.pays.vars.id }}">
+                                {{ 'bottle.cuntry'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.pays, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.pays.vars.value,
+                                        'data-url': path('get_regions_by_country')
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.pays, {
+                                    attr: {
+                                        'data-url': path('get_regions_by_country')
+                                    }
+                                }) }}
+                            {% endif %}
+                        </span>
+                        <span id="region-field" class="selecte">
+                            <label for="{{ botlleCreateForm.region.vars.id }}">
+                                {{ 'bottle.region'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.region, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.region.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.region) }}
+                            {% endif %}
+                        </span>
+                        <span class="selecte">
+                            <label for="{{ botlleCreateForm.type.vars.id }}">
+                                {{ 'bottle.type'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.type, {
+                                    attr: { 
+                                        'data-original': botlleCreateForm.type.vars.value,
+                                        'data-url': path('get_cepages_by_type')
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.type, {
+                                    attr: {
+                                        'data-url': path('get_cepages_by_type')
+                                    }
+                                }) }}
+                            {% endif %}
+                        </span>
+                        <span id="cepage-field" class="selecte">
+                            <label for="{{ botlleCreateForm.cepage.vars.id }}">
+                                {{ 'bottle.grape'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.cepage, {
+                                    attr: { 'data-original': botlleCreateForm.cepage.vars.value }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.cepage) }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="right">
+                        <span>
+                            <label for="{{ botlleCreateForm.describ.vars.id }}">
+                                {{ 'bottle.describ'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.describ, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.describ.vars.value
+                                    }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.describ) }}
+                            {% endif %}
+                        </span>
+                        <span class="radio-inline-group">
+                            <label for="{{ botlleCreateForm.bio.vars.id }}">
+                                {{ 'bottle.bio'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.bio, {
+                                    attr: { 'data-original': botlleCreateForm.bio.vars.value }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.bio) }}
+                            {% endif %}
+                        </span>
+                        <span class="radio-inline-group">
+                            <label for="{{ botlleCreateForm.sulfite.vars.id }}">
+                                {{ 'bottle.sulfite'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.sulfite, {
+                                    attr: { 'data-original': botlleCreateForm.sulfite.vars.value }
+                                }) }}
+                                <button type="button" class="reset-btn">↩</button>
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.sulfite) }}
+                            {% endif %}
+                        </span>
+                        <span>
+                            <label for="{{ botlleCreateForm.imageFile.vars.id }}">
+                                {{ 'bottle.image'|trans }}
+                            </label>
+                            {% if botlleUpdateForm %}
+                                {{ form_widget(botlleCreateForm.imageFile, {
+                                    attr: {
+                                        'data-original': botlleCreateForm.imageFile.vars.value
+                                    }
+                                }) }}
+                            {% else %}
+                                {{ form_widget(botlleCreateForm.imageFile) }}
+                            {% endif %}
+                        </span>
+
+                        <input class="btn btn-lg btn-primary" type="submit" value="{{ 'submit'|trans }}">
+                    </div>
+                {{ form_end(botlleCreateForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -7,26 +7,30 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin flex-basic($gap: 1rem) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: $gap;
+}
+
 main {
     #home {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
+        @include flex-basic(none);
         width: 100%;
-        margin-top: 0;
-        margin-bottom: 4rem;
+        margin-top: inherit;
 
         .hero {
             position: relative;
             width: 100%;
-            height: 70vh;
+            height: 100vh;
             overflow: hidden;
 
             #background-video {
                 @include center();
                 width: 100%;
-                height: 70vh;
+                height: 100vh;
                 object-fit: cover;
                 z-index: -1;
             }
@@ -34,42 +38,50 @@ main {
             .overlay {
                 @include center();
                 width: 100%;
-                height: 70vh;
+                height: 100vh;
                 background: variable.$color-overlay;
                 z-index: 1;
             }
 
             .hero-content {
                 @include center();
-                text-align: center;
-                h1 {
-                    color: inherit;
-                }
-                color: variable.$color-text-white;
                 z-index: 2;
+                width: 100%;
+                @include flex-basic(10rem);
+                text-align: center;
+                margin-bottom: 4rem;
+
+                p {
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+                }
+
+                .title {
+                    @include flex-basic();
+                }
+
+                .who-are-we {
+                    width: 90%;
+                    @include flex-basic();
+
+                    h3 {
+                        margin-top: 3rem;
+                    }
+                }
             }
         }
-
-        #Who-are-we {
-            .Who-are-we {
-                
-            }
-        } 
     }
 }
 
 @media screen and (min-width:1921px) {  
     main {
         #home {
-
-        }
-    }
-}
-
-@media screen and (max-width:1250px) {  
-    main {
-        #home {
-        
+            .hero {
+                .hero-content {
+                    .who-are-we {
+                        width: 50%;
+                    }
+                }
+            }
         }
     }
 }
@@ -77,7 +89,11 @@ main {
 @media screen and (max-width:768px) {
     main {
         #home {
-        
+            .hero {
+                .hero-content {
+                    @include flex-basic(5rem);
+                }
+            }
         }
     }
 }

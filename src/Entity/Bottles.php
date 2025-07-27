@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\BottlesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BottlesRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: BottlesRepository::class)]
 class Bottles
 {
@@ -28,17 +32,23 @@ class Bottles
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
+    #[ORM\Column(type: 'float')]
+    private ?float $price = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $years = null;
 
-    #[ORM\Column]
-    private ?int $volume = null;
+    #[ORM\Column(type: 'float')]
+    private ?float $volume = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $imgBottle = null;
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -66,6 +76,9 @@ class Bottles
      */
     #[ORM\OneToMany(targetEntity: Rates::class, mappedBy: 'bottle')]
     private Collection $rates;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $describ = null;
 
     public function __construct()
     {
@@ -164,16 +177,28 @@ class Bottles
         return $this;
     }
 
-    public function getImgBottle(): ?string
+    public function setImageFile(?File $imageFile = null):void
     {
-        return $this->imgBottle;
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
     }
 
-    public function setImgBottle(string $imgBottle): static
+    public function getImageFile(): ?File
     {
-        $this->imgBottle = $imgBottle;
+        return $this->imageFile;
+    }
 
-        return $this;
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -301,6 +326,18 @@ class Bottles
                 $rate->setBottle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescrib(): ?string
+    {
+        return $this->describ;
+    }
+
+    public function setDescrib(string $describ): static
+    {
+        $this->describ = $describ;
 
         return $this;
     }

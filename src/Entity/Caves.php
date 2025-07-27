@@ -15,7 +15,8 @@ class Caves
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'cave', targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     /**
@@ -45,6 +46,10 @@ class Caves
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        if ($user && $user->getCave() !== $this) {
+        $user->setCave($this);
+        }
 
         return $this;
     }

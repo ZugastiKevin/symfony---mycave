@@ -16,9 +16,6 @@ class WineProfile
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
-    private ?Types $type = null;
-
-    #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
     private ?Bio $bio = null;
 
     #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
@@ -27,8 +24,11 @@ class WineProfile
     /**
      * @var Collection<int, Bottles>
      */
-    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfile')]
+    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfiles')]
     private Collection $bottles;
+
+    #[ORM\ManyToOne(inversedBy: 'wineProfile')]
+    private ?Cepages $cepage = null;
 
     public function __construct()
     {
@@ -38,18 +38,6 @@ class WineProfile
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getType(): ?Types
-    {
-        return $this->type;
-    }
-
-    public function setType(?Types $type): static
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     public function getBio(): ?Bio
@@ -102,6 +90,18 @@ class WineProfile
                 $bottle->setWineProfile(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCepages(): ?Cepages
+    {
+        return $this->cepage;
+    }
+
+    public function setCepages(?Cepages $cepage): static
+    {
+        $this->cepage = $cepage;
 
         return $this;
     }

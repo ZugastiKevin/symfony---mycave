@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    locale: 'fr'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -24,6 +24,6 @@ services:
     # please note that last definitions always *replace* previous ones
     App\EventSubscriber\LocaleSubscriber:
         arguments:
-            $defaultLocale: 'fr'
+            $defaultLocale: '%locale%'
         tags:
             - { name: kernel.event_subscriber }

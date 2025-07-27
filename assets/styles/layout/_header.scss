@@ -1,5 +1,16 @@
 @use "../abstracts/variables" as variable;
 
+@mixin hovering($origin: right) {
+    content: '';
+    position: absolute;
+    top: 0; right: -1rem; bottom: 0; left: -1rem;
+    background-color: variable.$color-rose; // ou une autre couleur (ici : blanc semi-transparent)
+    transform: scaleX(0);
+    transform-origin: $origin;
+    transition: transform 0.4s ease-in-out;
+    z-index: 0;
+}
+
 #header {
     position: fixed;
     top: 0;
@@ -9,27 +20,106 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: variable.$color-wine;
 
     .header {
-        width: 100%;
-        max-height: 158px;
-
-        .language-switcher a.active {
-            font-weight: bold;
-            border-bottom: 2px solid currentColor;
-        }
+        width: 95%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         .logo-container {
-            width: 7%;
+            position: relative;
+            width: 10%;
             min-width: 70px;
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.3s ease-in-out;
         }
-        .list-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 3rem;
+        .logo-container:hover {
+            transform: rotate(-10deg);
+        }
+        .logo-container::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background-image: linear-gradient(to right, transparent 0%, transparent 30%, variable.$color-white 50%, variable.$color-white 100%);
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+        .logo-container:not(active)::after {
+            opacity: 0;
+        }
+        .logo-container.active::after {
+            opacity: 1;
+        }
+
+        .navbar__menu {
+            .list-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+
+                .list-nav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    div {
+                        padding: 0 1rem;
+                        border-right: solid 1px variable.$color-white;
+                        min-height: 40px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        li {
+                            position: relative;
+                        }
+
+                        li a span{
+                            position: relative;
+                            z-index: 1;
+                            color: variable.$color-white;
+                        }
+                        li a span.active{
+                            font-weight: bold;
+                            border-bottom: 2px solid currentColor;
+                        }
+                        li a::before{
+                            @include hovering();
+                        }
+                        li a:hover::before{
+                            transform: scaleX(1);
+                        }
+                    }
+                }
+
+                .language-switcher li {
+                    position: relative;
+                }
+                .language-switcher li a span{
+                    position: relative;
+                    z-index: 1;
+                    color: variable.$color-white;
+                }
+                .language-switcher li a span.active {
+                    font-weight: bold;
+                    border-bottom: 2px solid currentColor;
+                }
+                .language-switcher li::before {
+                    @include hovering(left);
+                }
+                .language-switcher li:hover::before {
+                    transform: scaleX(1);
+                }
+            }
         }
     }
 }
@@ -38,7 +128,10 @@
     #header {
         .header {
             .logo-container {
-                width: 3%;
+                width: 7%;
+            }
+            .logo-container:hover {
+                transform: rotate(-8deg);
             }
         }
     }

@@ -18,10 +18,7 @@ class Origins
     #[ORM\ManyToOne(inversedBy: 'origins')]
     private ?Regions $region = null;
 
-    #[ORM\ManyToOne(inversedBy: 'origins')]
-    private ?Cepages $cepage = null;
-
-    #[ORM\ManyToOne(inversedBy: 'origins')]
+    #[ORM\ManyToOne(targetEntity: Producers::class, inversedBy: 'origins')]
     private ?Producers $producer = null;
 
     /**
@@ -48,18 +45,6 @@ class Origins
     public function setRegion(?Regions $region): static
     {
         $this->region = $region;
-
-        return $this;
-    }
-
-    public function getCepage(): ?Cepages
-    {
-        return $this->cepage;
-    }
-
-    public function setCepage(?Cepages $cepage): static
-    {
-        $this->cepage = $cepage;
 
         return $this;
     }

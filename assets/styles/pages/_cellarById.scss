@@ -1,0 +1,65 @@
+@use "../abstracts/variables" as variable;
+
+main {
+    #highlight-card {
+        .highlight-card {
+
+        }
+    }
+    #bottles-card {
+        .bottles-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            .card-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+
+                .img-card-container {
+                    width: 20%;
+                }
+                .title-card-container {
+
+                }
+                .content-card-container {
+
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width:1921px) {  
+    main {
+        #highlight-card {
+            .highlight-card {
+
+            }
+        }
+        #bottles-card {
+            .bottles-card {
+                
+            }
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+    main {
+        #highlight-card {
+            .highlight-card {
+
+            }
+        }
+        #bottles-card {
+            .bottles-card {
+                
+            }
+        }
+    }
+}
