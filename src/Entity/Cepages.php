@@ -18,13 +18,13 @@ class Cepages
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cepage')]
-    private ?Types $types = null;
+    #[ORM\ManyToOne(inversedBy: 'cepages')]
+    private ?Types $type = null;
 
     /**
      * @var Collection<int, WineProfile>
      */
-    #[ORM\OneToMany(targetEntity: WineProfile::class, mappedBy: 'cepage')]
+    #[ORM\OneToMany(targetEntity: WineProfile::class, mappedBy: 'cepages')]
     private Collection $wineProfiles;
 
     public function __construct()
@@ -51,12 +51,12 @@ class Cepages
 
     public function getTypes(): ?Types
     {
-        return $this->types;
+        return $this->type;
     }
 
-    public function setTypes(?Types $types): static
+    public function setTypes(?Types $type): static
     {
-        $this->types = $types;
+        $this->type = $type;
 
         return $this;
     }

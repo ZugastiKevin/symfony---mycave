@@ -27,7 +27,7 @@ class WineProfile
     #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfiles')]
     private Collection $bottles;
 
-    #[ORM\ManyToOne(inversedBy: 'wineProfile')]
+    #[ORM\ManyToOne(inversedBy: 'wineProfiles')]
     private ?Cepages $cepage = null;
 
     public function __construct()

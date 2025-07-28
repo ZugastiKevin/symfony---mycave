@@ -118,7 +118,36 @@
             transition: 0.15s ease;
         }
 
+        .input-reset-inline {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            input,
+            select,
+            textarea {
+                flex: 1 1 auto;
+            }
+
+            .reset-btn {
+                flex: 0 0 auto;
+                padding: 0.3rem 0.5rem;
+                cursor: pointer;
+                background-color: transparent;
+                border: 1px solid variable.$color-magenta;
+                border-radius: 4px;
+                color: variable.$color-magenta;
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    background-color: variable.$color-magenta;
+                    color: white;
+                }
+            }
+        }
+
         input, select, textarea {
+            flex: 1;
             width: 100%;
             border: none;
             border-bottom: 2px solid variable.$color-magenta;

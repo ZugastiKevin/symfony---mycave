@@ -18,15 +18,18 @@ final class CepageController extends AbstractController
     {
         $typeId = $request->get('typeId');
 
-        $cepages = $repository->findBy(['types' => $typeId]);
+        $cepages = $repository->findBy(['type' => $typeId]);
 
-        $form = $formFactory->createNamed('cepage', ChoiceType::class, null, [
-            'choices' => $cepages,
-            'choice_label' => fn (Cepages $cepage) => $cepage->getLabel(),
-            'placeholder' => 'form.grapes_placeholder',
-            'label' => false,
-            'csrf_protection' => false
-        ]);
+        $form = $formFactory->createBuilder()
+            ->add('cepage', ChoiceType::class, [
+                'choices' => $cepages,
+                'choice_value' => 'id',
+                'choice_label' => fn (Cepages $cepage) => $cepage->getLabel(),
+                'placeholder' => 'form.grapes_placeholder',
+                'label' => false,
+                'csrf_protection' => false,
+            ])
+            ->getForm();
 
         return $this->json([
             'html' => $this->renderView('partials/cepages.html.twig', [

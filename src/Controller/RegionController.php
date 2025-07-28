@@ -20,13 +20,16 @@ final class RegionController extends AbstractController
 
         $regions = $repository->findBy(['pays' => $paysId]);
 
-        $form = $formFactory->createNamed('region', ChoiceType::class, null, [
-            'choices' => $regions,
-            'choice_label' => fn (Regions $region) => $region->getLabel(),
-            'placeholder' => 'form.regions_placeholder',
-            'label' => false,
-            'csrf_protection' => false
-        ]);
+        $form = $formFactory->createBuilder()
+            ->add('region', ChoiceType::class, [
+                'choices' => $regions,
+                'choice_value' => 'id',
+                'choice_label' => fn (Regions $region) => $region->getLabel(),
+                'placeholder' => 'form.regions_placeholder',
+                'label' => false,
+                'csrf_protection' => false,
+            ])
+            ->getForm();
 
         return $this->json([
             'html' => $this->renderView('partials/regions.html.twig', [

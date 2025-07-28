@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Bio;
 use App\Entity\Bottles;
+use App\Entity\Cepages;
 use App\Entity\Origins;
-use App\Entity\Producers;
+use App\Entity\Regions;
 use App\Entity\Sulfite;
+use App\Entity\Producers;
 use App\Entity\WineProfile;
 use App\Form\BottlesTypeForm;
 use App\Repository\BottlesRepository;
@@ -61,7 +63,9 @@ final class BottlesController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             // bloc origin
-            $region = $form->get('region')->getData();
+            $regionId = $request->request->all('form')['region'] ?? null;
+            $region = $entityManager->getRepository(Regions::class)->find($regionId);
+
             $producerValue = $form->get('producer')->getData();
 
             $producer = $entityManager->getRepository(Producers::class)->findOneBy([
@@ -89,7 +93,9 @@ final class BottlesController extends AbstractController
             $bottles->setOrigin($origin);
 
             // Bloc wine profile
-            $cepage = $form->get('cepage')->getData();
+            $cepageId = $request->request->all('form')['cepage'] ?? null;
+            $cepage = $entityManager->getRepository(Cepages::class)->find($cepageId);
+
             $bioValue = $form->get('bio')->getData();
             $sulfiteValue = $form->get('sulfite')->getData();
 
@@ -175,7 +181,7 @@ final class BottlesController extends AbstractController
         if($this->isCsrfTokenValid("SUP". $bottles->getId(),$request->get('_token'))){
             $entityManager->remove($bottles);
             $entityManager->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('cellar', ['id' => $cave->getId()]);
         }
     }
 }

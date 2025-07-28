@@ -29,45 +29,45 @@ final class Version20250725201536 extends AbstractMigration
 
 
         // Rouges
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (1, 1, 'Cabernet Sauvignon');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (2, 1, 'Merlot');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (3, 1, 'Pinot Noir');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (4, 1, 'Syrah');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (5, 1, 'Grenache');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (6, 1, 'Malbec');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (7, 1, 'Tempranillo');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (8, 1, 'Sangiovese');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (9, 1, 'Zinfandel');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (10, 1, 'Nebbiolo');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (1, 1, 'Cabernet Sauvignon');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (2, 1, 'Merlot');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (3, 1, 'Pinot Noir');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (4, 1, 'Syrah');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (5, 1, 'Grenache');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (6, 1, 'Malbec');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (7, 1, 'Tempranillo');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (8, 1, 'Sangiovese');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (9, 1, 'Zinfandel');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (10, 1, 'Nebbiolo');");
 
 
 
         // Blancs
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (11, 2, 'Chardonnay');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (12, 2, 'Sauvignon Blanc');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (13, 2, 'Riesling');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (14, 2, 'Gewürztraminer');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (15, 2, 'Viognier');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (16, 2, 'Muscadet');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (17, 2, 'Chenin Blanc');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (18, 2, 'Pinot Blanc');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (19, 2, 'Marsanne');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (20, 2, 'Roussanne');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (11, 2, 'Chardonnay');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (12, 2, 'Sauvignon Blanc');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (13, 2, 'Riesling');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (14, 2, 'Gewürztraminer');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (15, 2, 'Viognier');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (16, 2, 'Muscadet');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (17, 2, 'Chenin Blanc');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (18, 2, 'Pinot Blanc');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (19, 2, 'Marsanne');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (20, 2, 'Roussanne');");
 
 
 
         // Rosés
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (21, 3, 'Cinsault');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (22, 3, 'Grenache Gris');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (23, 3, 'Tibouren');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (24, 3, 'Carignan Gris');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (21, 3, 'Cinsault');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (22, 3, 'Grenache Gris');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (23, 3, 'Tibouren');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (24, 3, 'Carignan Gris');");
 
 
 
         // Effervescents
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (25, 4, 'Pinot Meunier');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (26, 4, 'Chardonnay');");
-        $this->addSql("INSERT INTO cepages (id, types_id, label) VALUES (27, 4, 'Pinot Noir');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (25, 4, 'Pinot Meunier');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (26, 4, 'Chardonnay');");
+        $this->addSql("INSERT INTO cepages (id, type_id, label) VALUES (27, 4, 'Pinot Noir');");
 
 
 
