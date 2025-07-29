@@ -75,7 +75,7 @@
             padding: 1rem;
             border-radius: 1rem;
             color: white;
-            width: 60%;
+            width: 70%;
 
             mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
@@ -128,22 +128,6 @@
             textarea {
                 flex: 1 1 auto;
             }
-
-            .reset-btn {
-                flex: 0 0 auto;
-                padding: 0.3rem 0.5rem;
-                cursor: pointer;
-                background-color: transparent;
-                border: 1px solid variable.$color-magenta;
-                border-radius: 4px;
-                color: variable.$color-magenta;
-                transition: all 0.2s ease-in-out;
-
-                &:hover {
-                    background-color: variable.$color-magenta;
-                    color: white;
-                }
-            }
         }
 
         input, select, textarea {
@@ -184,9 +168,40 @@
         }
     }
 
-    .number, #region-field, #cepage-field, .selecte, .radio-inline-group {
+    .number, #region-field, #cepage-field, .selecte, .radio-inline-group, #image {
         label {
             transform: translate(0, 0);
+        }
+    }
+
+    input[type="file"] {
+        &::-webkit-file-upload-button {
+            background-color: transparent;
+            color: variable.$color-magenta;
+            border: none;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        &::-webkit-file-upload-button:hover {
+            background-color: variable.$color-magenta;
+            color: variable.$color-white;
+        }
+
+        &::file-selector-button { // pour Firefox
+            padding: 0.3rem 0.5rem;
+            background-color: transparent;
+            color: variable.$color-magenta;
+            border: 1px solid variable.$color-magenta;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        &::file-selector-button:hover {
+            background-color: variable.$color-magenta;
+            color: variable.$color-white;
         }
     }
 
@@ -257,6 +272,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-around;
+                    width: 48%;
                     height: 100%;
 
                     @include input-label-effect();
@@ -265,6 +281,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-around;
+                    width: 48%;
                     height: 100%;
 
                     @include input-label-effect();

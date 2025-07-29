@@ -17,19 +17,55 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class BottlesController extends AbstractController
 {
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[Route('/toggle_cave_bottle/{id}', name: 'toggle_cave_bottle', methods: ['POST'])]
+    public function toggleCaveBottle(Bottles $bottle, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $user = $this->getUser();
+        $cave = $user->getCave();
+
+        if ($cave->getBottle()->contains($bottle)) {
+            $cave->removeBottle($bottle);
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'inCave' => false,
+                'bottleId' => $bottle->getId()
+            ]);
+        }
+
+        $cave->addBottle($bottle);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            'inCave' => true,
+            'bottleId' => $bottle->getId()
+        ]);
+    }
+
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/bottles', name: 'bottles')]
     public function index(BottlesRepository $repository): Response
     {
         $bottles = $repository->findAll();
 
+        $user = $this->getUser();
+        $cave = $user->getCave();
+        $bottlesInCave = $cave->getBottle();
+
+        $highlightfind = $cave->getHighlight();
+        $highlight = $highlightfind->getBottle();
+
         return $this->render('bottles/index.html.twig', [
             'bottles' => $bottles,
+            'caveBottleIds' => array_map(fn($b) => $b->getId(), $bottlesInCave->toArray()),
+            'currentHighlightId' => $highlight ? $highlight->getId() : null,
         ]);
     }
 
@@ -37,8 +73,13 @@ final class BottlesController extends AbstractController
     #[Route('/bottle/{id}', name: 'bottle')]
     public function bottleById(Bottles $bottles): Response
     {
+        $user = $this->getUser();
+        $cave = $user->getCave();
+        $isInCave = $cave->getBottle()->contains($bottles);
+
         return $this->render('bottles/bottle.html.twig', [
             'bottle' => $bottles,
+            'isInCave' => $isInCave,
         ]);
     }
 
@@ -59,6 +100,19 @@ final class BottlesController extends AbstractController
         }
 
         $form = $this->createForm(BottlesTypeForm::class, $bottles);
+
+        $form->get('years')->setData((int) $bottles->getYears()?->format('Y'));
+
+        $form->get('pays')->setData($bottles->getOrigin()?->getRegion()?->getPays());
+        $form->get('region')->setData($bottles->getOrigin()?->getRegion());
+        $form->get('producer')->setData($bottles->getOrigin()?->getProducer()?->getLabel());
+
+        $form->get('type')->setData($bottles->getWineProfile()?->getCepages()?->getTypes());
+        $form->get('cepage')->setData($bottles->getWineProfile()?->getCepages());
+        $form->get('bio')->setData($bottles->getWineProfile()?->getBio()?->isBio());
+        $form->get('sulfite')->setData($bottles->getWineProfile()?->getSulfite()?->isSulfite());
+
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -160,13 +214,18 @@ final class BottlesController extends AbstractController
             $entityManager->flush();
 
             $bottles->setImageFile(null);
-                
+          
+            $user = $this->getUser();
+            $cave = $user->getCave();
+
             return $this->redirectToRoute('cellar', ['id' => $cave->getId()]);
         }
 
         return $this->render('bottles/createUpdateBottles.html.twig', [
             'botlleCreateForm' => $form->createView(),
             'botlleUpdateForm' => $bottles->getId() !== null,
+            'is_update' => $bottles->getId() !== null,
+            'bottle' => $bottles,
         ]);
     }
     
@@ -174,14 +233,42 @@ final class BottlesController extends AbstractController
     #[Route('/delete_bottle/{id}', name: 'delete_bottle')]
     public function deleteBottle(Bottles $bottles, Request $request, EntityManagerInterface $entityManager)
     {
-        if ($bottles->getUser() !== $this->getUser()) {
+        if ($bottles->getUser() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('home');
         }
 
         if($this->isCsrfTokenValid("SUP". $bottles->getId(),$request->get('_token'))){
+            $caves = $bottles->getCaves();
+            $caveUser = $caves->first() ?: null;
+
+            foreach ($bottles->getCaves() as $cave) {
+                $cave->removeBottle($bottles);
+            }
+
+            foreach ($bottles->getHighlights() as $highlight) {
+                $entityManager->remove($highlight);
+            }
+
+            $wineProfile = $bottles->getWineProfile();
+            if ($wineProfile !== null && $wineProfile->getBottles()->count() <= 1) {
+                $entityManager->remove($wineProfile);
+            }
+
+            $origin = $bottles->getOrigin();
+            if ($origin && $origin->getBottles()->count() <= 1) {
+                $entityManager->remove($origin);
+            }
+
             $entityManager->remove($bottles);
             $entityManager->flush();
-            return $this->redirectToRoute('cellar', ['id' => $cave->getId()]);
+
+            if ($caveUser) {
+                return $this->redirectToRoute('cellar', ['id' => $caveUser->getId()]);
+            }
+
+            return $this->redirectToRoute('home');
         }
+
+        return $this->redirectToRoute('home');
     }
 }

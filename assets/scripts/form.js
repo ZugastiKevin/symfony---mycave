@@ -4,10 +4,10 @@ const inputs = document.querySelectorAll(selector);
 const form = document.querySelector('.all-form');
 
 function initInput(inputEl) {
-    const wrapper = inputEl.parentNode;
+    const wrapper = inputEl.closest('span');
 
     if (inputEl.value.trim() !== '') {
-        wrapper?.classList.add('input--filled');
+        wrapper?.classList.add('inputs--filled');
     }
 
     inputEl.addEventListener('focus', onFocus);
@@ -80,13 +80,14 @@ function onSubmit(ev) {
 }
 
 window.addEventListener('load', () => {
-    if (inputs) {
-        inputs.forEach(initInput);
-        inputs.forEach((input) => {
-            input.focus();
-            input.blur();
-        })
-    }
+    inputs.forEach((input) => {
+        initInput(input);
+
+        if (input.tagName === 'SELECT' && input.value) {
+            const wrapper = input.parentNode;
+            wrapper.classList.add('inputs--filled');
+        }
+    });
 });
 
 document.querySelectorAll('.reset-btn').forEach((btn) => {

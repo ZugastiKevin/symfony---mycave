@@ -65,6 +65,7 @@ bottle:
   type: Sélectionner un type de vin
   bio: Vin biologique ?
   sulfite: Contient des sulfites ?
+  image: Image de la bouteille
 
 # form bottle placeholder
 form:
@@ -85,6 +86,11 @@ form:
     describ_too_long: La description ne peut pas dépasser {{ limit }} caractères.
 
 # cellar
-wine_profile.bio.label: Vin biologique
+wine_profile.bio.label: Vin biologique, 
 wine_profile.sulfite.with: Avec sulfites
 wine_profile.sulfite.without: Sans sulfites
+
+add_cellar: Ajouter à ma cave
+remove_cellar: Retirer de ma cave
+
+bottles: Les bouteilles

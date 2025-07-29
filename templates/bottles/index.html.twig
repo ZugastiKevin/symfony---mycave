@@ -1,20 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BottlesController!{% endblock %}
+{% block title %}Hello CellarController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/symfony---mycave/src/Controller/BottlesController.php</code></li>
-        <li>Your template at <code>/var/www/html/symfony---mycave/templates/bottles/index.html.twig</code></li>
-    </ul>
-</div>
+    <section id="bottles-card">
+        <div class="bottles-card">
+            {% for bottle in bottles %}
+                <div class="card">
+                    <div class="best">
+                        {% set isHighlighted = bottle.id == currentHighlightId %}
+                        <button
+                            type="button"
+                            class="btn highlight-toggle {{ isHighlighted ? 'highlighted' : '' }}"
+                            data-id="{{ bottle.id }}"
+                            data-url="{{ path('toggle_highlight', {'id': bottle.id}) }}">
+                            {% if isHighlighted %}
+                                <span>★</span> 
+                            {% else %}
+                                <span>☆</span>
+                            {% endif %}
+                        </button>
+                    </div>
+                    <a class="card-container" href="{{ path('bottle',{'id' : bottle.id, '_locale': app.request.locale}) }}">
+                        <div class="img-card-container">
+                            <img src="{{ asset('images/upload/' ~ bottle.imageName) }}" alt="Image {{ bottle.label }}">
+                        </div>
+                        <div class="title-card-container">
+                            <h2>{{ bottle.label }}</h2>
+                        </div>
+                        <div class="content-card-container">
+                            <p>
+                                {% if bottle.wineProfile and bottle.wineProfile.bio and bottle.wineProfile.bio.isBio() %}
+                                    <span>{{ 'wine_profile.bio.label'|trans }}</span>
+                                {% endif %}
+                                {% if bottle.wineProfile and bottle.wineProfile.sulfite %}
+                                    {% if bottle.wineProfile.sulfite.isSulfite() %}
+                                        <span>{{ 'wine_profile.sulfite.with'|trans }}</span>
+                                    {% else %}
+                                        <span>{{ 'wine_profile.sulfite.without'|trans }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="option-card">
+                        {% set isInCave = bottle.id in caveBottleIds %}
+                        <button
+                            class="btn toggle-cave {{ isInCave ? 'btn-danger' : 'btn-primary' }}"
+                            data-id="{{ bottle.id }}"
+                            data-url="{{ path('toggle_cave_bottle', {'id': bottle.id}) }}"
+                            data-label-add="{{ 'add_cellar'|trans }}"
+                            data-label-remove="{{ 'remove_cellar'|trans }}">
+                            {{ isInCave ? 'remove_cellar'|trans : 'add_cellar'|trans }}
+                        </button>
+                    </div>
+                    <div class="option-card">
+                        {% if app.user and (app.user.id == bottle.user.id or 'ROLE_ADMIN' in app.user.roles) %}
+                            <a href="{{ path('update_bottle',{'id' : bottle.id, '_locale': app.request.locale}) }}">{{ 'update'|trans }}</a>
+                            <form method="POST" onsubmit="return confirm('{{ 'confirm_delete'|trans }}')" action="{{ path('delete_bottle', {'id': bottle.id}) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ bottle.id) }}">
+                                <input type="submit" value="{{ 'delete'|trans }}">
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}
+

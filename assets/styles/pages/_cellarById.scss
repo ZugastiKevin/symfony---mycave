@@ -7,28 +7,99 @@ main {
         }
     }
     #bottles-card {
-        .bottles-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
 
-            .card-container {
+        .bottles-card {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+
+            .card {
+                position: relative;
+                width: 30%;
+                min-height: 722px;
+                max-height: 722px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
                 gap: 1rem;
 
-                .img-card-container {
-                    width: 20%;
-                }
-                .title-card-container {
+                padding: 1rem;
+                border: 2px solid variable.$color-rose;
+                border-left: none;
+                border-right: none;
+                border-radius: 1rem;
+                box-shadow: 
+                    0 -10px 10px -10px rgba(0, 0, 0, 0.3),
+                    0 10px 10px -10px rgba(0, 0, 0, 0.3)
+                ;
+                transition: transform 0.3s ease;
 
-                }
-                .content-card-container {
+                .best {
+                    position: absolute;
+                    top: 5%;
+                    right: 10%;
+                    z-index: 2;
 
+                    button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: transparent;
+                        border: 2px solid variable.$color-rose;
+                        border-radius: 1rem;
+                        color: variable.$color-rose;
+                        transition: all 0.2s ease-in;
+
+                        span {
+                            transform: translateY(-2.6px) scale(2);
+                        }
+                    }
+                    button:hover {
+                        color: gold;
+                        border-color: gold;
+                    }
+                    .highlight-toggle.highlighted {
+                        color: gold;
+                    }
                 }
+                .card-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 1rem;
+
+                    .img-card-container {
+                        width: 100%;
+                        height: 500px;
+                    }
+                    .title-card-container {
+
+                    }
+                    .content-card-container {
+
+                    }
+                    
+                }
+                .option-card {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 1rem;
+                }
+            }
+            .card:hover {
+                transform: translateY(-5px);
             }
         }
     }
@@ -43,7 +114,58 @@ main {
         }
         #bottles-card {
             .bottles-card {
-                
+                .card {
+                    max-width: 560px;
+                    .card-container {
+                        .img-card-container {
+            
+                        }
+                        .title-card-container {
+
+                        }
+                        .content-card-container {
+
+                        }
+                        
+                    }
+                    .option-card {
+                       
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1080px) {
+    main {
+        #highlight-card {
+            .highlight-card {
+
+            }
+        }
+        #bottles-card {
+            .bottles-card {
+                .card {
+                    width: 45%;
+
+                    .card-container {
+
+                        .img-card-container {
+                            
+                        }
+                        .title-card-container {
+
+                        }
+                        .content-card-container {
+
+                        }
+                        
+                    }
+                    .option-card {
+                        
+                    }
+                }
             }
         }
     }
@@ -58,7 +180,63 @@ main {
         }
         #bottles-card {
             .bottles-card {
-                
+                .card {
+                    width: 100%;
+
+                    .card-container {
+
+                        .img-card-container {
+                            
+                        }
+                        .title-card-container {
+
+                        }
+                        .content-card-container {
+
+                        }
+                        
+                    }
+                    .option-card {
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:500px) {
+    main {
+        #highlight-card {
+            .highlight-card {
+
+            }
+        }
+        #bottles-card {
+            .bottles-card {
+                width: 100%;
+                .card {
+
+                    .card-container {
+
+                        .img-card-container {
+                            
+                        }
+                        .title-card-container {
+
+                        }
+                        .content-card-container {
+
+                        }
+                        
+                    }
+                    .option-card {
+                        
+                    }
+                }
+                .card:hover {
+                    transform: inherit;
+                }
             }
         }
     }

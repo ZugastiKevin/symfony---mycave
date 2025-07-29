@@ -12,3 +12,18 @@
 .cta:hover {
     background-color: variable.$color-rose;
 }
+
+.reset-btn {
+    flex: 0 0 auto;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid variable.$color-magenta;
+    border-radius: 4px;
+    color: variable.$color-magenta;
+    transition: all 0.2s ease-in-out;
+}
+.reset-btn:hover {
+    background-color: variable.$color-magenta;
+    color: variable.$color-white;
+}

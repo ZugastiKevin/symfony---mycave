@@ -9,36 +9,74 @@
         </div>
     </section>
     <section id="bottles-card">
+        <ul>
+            <li><a href="{{ path('create_bottle', {'_locale': app.request.locale}) }}">{{ 'create_bottle'|trans }}</a></li>
+            <li><a href="{{ path('bottles', {'_locale': app.request.locale}) }}">{{ 'bottles'|trans }}</a></li>
+        </ul>
         <div class="bottles-card">
             {% for bottle in bottles %}
-                <a class="card-container" href="{{ path('bottle',{'id' : bottle.id}) }}">
-                    <div class="img-card-container">
-                        <img src="{{ asset('images/upload/' ~ bottle.imageName) }}" alt="Image {{ bottle.label }}">
-                    </div>
-                    <div class="title-card-container">
-                        <h2>{{ bottle.label }}</h2>
-                    </div>
-                    <div class="content-card-container">
-                        <p>
-                            {% if bottle.wineProfile.bio and bottle.wineProfile.bio.isBio() %}
-                                <span>{{ 'wine_profile.bio.label'|trans }}</span>
-                            {% endif %} 
-                            {% if bottle.wineProfile.sulfite and bottle.wineProfile.sulfite.isSulfite() %}
-                                <span>{{ 'wine_profile.sulfite.with'|trans }}</span>
+                <div class="card">
+                    <div class="best">
+                        {% set isHighlighted = bottle.id == currentHighlightId %}
+                        <button
+                            type="button"
+                            class="btn highlight-toggle {{ isHighlighted ? 'highlighted' : '' }}"
+                            data-id="{{ bottle.id }}"
+                            data-url="{{ path('toggle_highlight', {'id': bottle.id}) }}">
+                            <pre>
+                                {{ dump(isHighlighted, currentHighlightId) }}
+                            </pre>
+                            {% if isHighlighted %}
+                                <span>★</span> 
                             {% else %}
-                                <span>{{ 'wine_profile.sulfite.without'|trans }}</span>
+                                <span>☆</span>
                             {% endif %}
-                        </p>
+                        </button>
                     </div>
-                    {% if app.user and (app.user.id == bottle.user.id or 'ROLE_ADMIN' in app.user.roles) %}
-                        <a href="{{ path('update_bottle',{'id' : bottle.id}) }}">{{ 'update'|trans }}</a>
-                        <form method="POST" onsubmit="return confirm('{{ 'confirm_delete'|trans }}')" action="{{ path('delete_bottle', {'id': bottle.id}) }}">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ bottle.id) }}">
-                            <input type="submit" value="{{ 'delete'|trans }}">
-                        </form>
-                    {% endif %}
-                </a>
+                    <a class="card-container" href="{{ path('bottle',{'id' : bottle.id, '_locale': app.request.locale}) }}">
+                        <div class="img-card-container">
+                            <img src="{{ asset('images/upload/' ~ bottle.imageName) }}" alt="Image {{ bottle.label }}">
+                        </div>
+                        <div class="title-card-container">
+                            <h2>{{ bottle.label }}</h2>
+                        </div>
+                        <div class="content-card-container">
+                            <p>
+                                {% if bottle.wineProfile and bottle.wineProfile.bio and bottle.wineProfile.bio.isBio() %}
+                                    <span>{{ 'wine_profile.bio.label'|trans }}</span>
+                                {% endif %}
+                                {% if bottle.wineProfile and bottle.wineProfile.sulfite %}
+                                    {% if bottle.wineProfile.sulfite.isSulfite() %}
+                                        <span>{{ 'wine_profile.sulfite.with'|trans }}</span>
+                                    {% else %}
+                                        <span>{{ 'wine_profile.sulfite.without'|trans }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="option-card">
+                        {% set isInCave = bottle.id in caveBottleIds %}
+                        <button
+                            class="btn toggle-cave {{ isInCave ? 'btn-danger' : 'btn-primary' }}"
+                            data-id="{{ bottle.id }}"
+                            data-url="{{ path('toggle_cave_bottle', {'id': bottle.id}) }}"
+                            data-label-add="{{ 'add_cellar'|trans }}"
+                            data-label-remove="{{ 'remove_cellar'|trans }}">
+                            {{ isInCave ? 'remove_cellar'|trans : 'add_cellar'|trans }}
+                        </button>
+                    </div>
+                    <div class="option-card">
+                        {% if app.user and (app.user.id == bottle.user.id or 'ROLE_ADMIN' in app.user.roles) %}
+                            <a href="{{ path('update_bottle',{'id' : bottle.id, '_locale': app.request.locale}) }}">{{ 'update'|trans }}</a>
+                            {# <form method="POST" onsubmit="return confirm('{{ 'confirm_delete'|trans }}')" action="{{ path('delete_bottle', {'id': bottle.id}) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ bottle.id) }}">
+                                <input type="submit" value="{{ 'delete'|trans }}">
+                            </form> #}
+                        {% endif %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </section>

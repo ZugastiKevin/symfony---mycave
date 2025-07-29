@@ -23,6 +23,8 @@ class BottlesTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $isUpdate = $options['is_update'];
+
         $builder
             ->add('label', TextType::class,[
                 'required' => true,
@@ -96,7 +98,7 @@ class BottlesTypeForm extends AbstractType
             ])
             ->add('imageFile', FileType::class,[
                 'mapped' => true,
-                'required' => true,
+                'required' => $options['is_update'] === false,
                 'constraints' => [
                     new File([
                         'maxSize' => '2M',
@@ -177,6 +179,7 @@ class BottlesTypeForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Bottles::class,
+            'is_update' => false,
         ]);
     }
 }

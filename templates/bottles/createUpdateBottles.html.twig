@@ -44,9 +44,12 @@
                                 {{ 'bottle.producer'|trans }}
                             </label>
                             {% if botlleUpdateForm %}
-                                {{ form_widget(botlleCreateForm.producer, {
-                                    attr: { 'data-original': botlleCreateForm.producer.vars.value }
-                                }) }}
+                                <div class="input-reset-inline">
+                                    {{ form_widget(botlleCreateForm.producer, {
+                                        attr: { 'data-original': botlleCreateForm.producer.vars.value }
+                                    }) }}
+                                    <button type="button" class="reset-btn">↩</button>
+                                </div>
                             {% else %}
                                 {{ form_widget(botlleCreateForm.producer) }}
                             {% endif %}
@@ -73,11 +76,14 @@
                                 {{ 'bottle.year'|trans }}
                             </label>
                             {% if botlleUpdateForm %}
-                                {{ form_widget(botlleCreateForm.years, {
-                                    attr: {
-                                        'data-original': botlleCreateForm.years.vars.value
-                                    }
-                                }) }}
+                                <div class="input-reset-inline">
+                                    {{ form_widget(botlleCreateForm.years, {
+                                        attr: {
+                                            'data-original': botlleCreateForm.years.vars.value
+                                        }
+                                    }) }}
+                                    <button type="button" class="reset-btn">↩</button>
+                                </div>
                             {% else %}
                                 {{ form_widget(botlleCreateForm.years) }}
                             {% endif %}
@@ -104,12 +110,15 @@
                                 {{ 'bottle.cuntry'|trans }}
                             </label>
                             {% if botlleUpdateForm %}
-                                {{ form_widget(botlleCreateForm.pays, {
-                                    attr: {
-                                        'data-original': botlleCreateForm.pays.vars.value,
-                                        'data-url': path('get_regions_by_country')
-                                    }
-                                }) }}
+                                <div class="input-reset-inline">
+                                    {{ form_widget(botlleCreateForm.pays, {
+                                        attr: {
+                                            'data-original': botlleCreateForm.pays.vars.value,
+                                            'data-url': path('get_regions_by_country')
+                                        }
+                                    }) }}
+                                    <button type="button" class="reset-btn">↩</button>
+                                </div>
                             {% else %}
                                 {{ form_widget(botlleCreateForm.pays, {
                                     attr: {
@@ -124,9 +133,7 @@
                             </label>
                             {% if botlleUpdateForm %}
                                 {{ form_widget(botlleCreateForm.region, {
-                                    attr: {
-                                        'data-original': botlleCreateForm.region.vars.value
-                                    }
+                                    attr: { 'data-original': botlleCreateForm.region.vars.value }
                                 }) }}
                             {% else %}
                                 {{ form_widget(botlleCreateForm.region) }}
@@ -137,12 +144,15 @@
                                 {{ 'bottle.type'|trans }}
                             </label>
                             {% if botlleUpdateForm %}
-                                {{ form_widget(botlleCreateForm.type, {
-                                    attr: { 
-                                        'data-original': botlleCreateForm.type.vars.value,
-                                        'data-url': path('get_cepages_by_type')
-                                    }
-                                }) }}
+                                <div class="input-reset-inline">
+                                    {{ form_widget(botlleCreateForm.type, {
+                                        attr: { 
+                                            'data-original': botlleCreateForm.type.vars.value,
+                                            'data-url': path('get_cepages_by_type')
+                                        }
+                                    }) }}
+                                    <button type="button" class="reset-btn">↩</button>
+                                </div>
                             {% else %}
                                 {{ form_widget(botlleCreateForm.type, {
                                     attr: {
@@ -206,7 +216,7 @@
                                 {{ form_widget(botlleCreateForm.sulfite) }}
                             {% endif %}
                         </span>
-                        <span>
+                        <span id="image">
                             <label for="{{ botlleCreateForm.imageFile.vars.id }}">
                                 {{ 'bottle.image'|trans }}
                             </label>
