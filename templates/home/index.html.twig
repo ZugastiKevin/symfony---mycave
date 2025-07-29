@@ -18,8 +18,12 @@
                 <div class="who-are-we">
                     <h2>{{ 'who-are-we'|trans }}</h2>
                     <p>{{ 'my-cave-description'|trans }}</p>
-                    <h3>{{ 'my-cave-join'|trans }}</h3>
-                    <a class="cta" href="{{ path('create_user', {'_locale': app.request.locale}) }}">{{ 'create_account'|trans }}</a>
+                    {% if app.user %}
+
+                    {% else %}
+                        <h3>{{ 'my-cave-join'|trans }}</h3>
+                        <a class="cta" href="{{ path('create_user', {'_locale': app.request.locale}) }}">{{ 'create_account'|trans }}</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

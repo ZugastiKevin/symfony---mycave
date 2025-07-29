@@ -23,9 +23,6 @@
                             class="btn highlight-toggle {{ isHighlighted ? 'highlighted' : '' }}"
                             data-id="{{ bottle.id }}"
                             data-url="{{ path('toggle_highlight', {'id': bottle.id}) }}">
-                            <pre>
-                                {{ dump(isHighlighted, currentHighlightId) }}
-                            </pre>
                             {% if isHighlighted %}
                                 <span>★</span> 
                             {% else %}
