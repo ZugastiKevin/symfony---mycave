@@ -42,7 +42,7 @@ final class CellarController extends AbstractController
             'highlight' => $highlight,
             'bottles' => $bottles,
             'caveBottleIds' => array_map(fn($b) => $b->getId(), $bottlesInCave->toArray()),
-            'currentHighlightId' => $highlight->getId(),
+            'currentHighlightId' => $highlight ? $highlight->getId() : null,
         ]);
     }
 
