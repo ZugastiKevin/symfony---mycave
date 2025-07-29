@@ -31,7 +31,7 @@ final class CellarController extends AbstractController
     public function read(Caves $caves): Response
     {
         $highlightfind = $caves->getHighlight();
-        $highlight = $highlightfind->getBottle();
+        $highlight = $highlightfind ? $highlightfind->getBottle() : null;
         $bottles = $caves->getBottle();
 
         $user = $this->getUser();
@@ -39,10 +39,10 @@ final class CellarController extends AbstractController
         $bottlesInCave = $cave->getBottle();
 
         return $this->render('cellar/cellarById.html.twig', [
-            'highlight' => $highlight ? $highlight : null,
+            'highlight' => $highlight,
             'bottles' => $bottles,
             'caveBottleIds' => array_map(fn($b) => $b->getId(), $bottlesInCave->toArray()),
-            'currentHighlightId' => $highlight ? $highlight->getId() : null,
+            'currentHighlightId' => $highlight->getId(),
         ]);
     }
 
