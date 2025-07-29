@@ -60,7 +60,7 @@ final class BottlesController extends AbstractController
         $bottlesInCave = $cave->getBottle();
 
         $highlightfind = $cave->getHighlight();
-        $highlight = $highlightfind->getBottle();
+        $highlight = $highlightfind ? $highlightfind->getBottle() : null;
 
         return $this->render('bottles/index.html.twig', [
             'bottles' => $bottles,
