@@ -12,29 +12,31 @@
     <section id="highlight-card">
         <div class="highlight-card">
             <div class="card">
-                <a class="card-container" href="{{ path('bottle',{'id' : highlight.id, '_locale': app.request.locale}) }}">
-                    <div class="img-card-container">
-                        <img src="{{ asset('images/upload/' ~ highlight.imageName) }}" alt="Image {{ highlight.label }}">
-                    </div>
-                    <div class="title-card-container">
-                        <h1>{{ 'best'|trans }}</h1>
-                        <h2>{{ highlight.label }}</h2>
-                    </div>
-                    <div class="content-card-container">
-                        <p>
-                            {% if highlight.wineProfile and highlight.wineProfile.bio and highlight.wineProfile.bio.isBio() %}
-                                <span>{{ 'wine_profile.bio.label'|trans }}</span>
-                            {% endif %}
-                            {% if highlight.wineProfile and highlight.wineProfile.sulfite %}
-                                {% if highlight.wineProfile.sulfite.isSulfite() %}
-                                    <span>{{ 'wine_profile.sulfite.with'|trans }}</span>
-                                {% else %}
-                                    <span>{{ 'wine_profile.sulfite.without'|trans }}</span>
+                {% if highlight %}
+                    <a class="card-container" href="{{ path('bottle',{'id' : highlight.id, '_locale': app.request.locale}) }}">
+                        <div class="img-card-container">
+                            <img src="{{ asset('images/upload/' ~ highlight.imageName) }}" alt="Image {{ highlight.label }}">
+                        </div>
+                        <div class="title-card-container">
+                            <h1>{{ 'best'|trans }}</h1>
+                            <h2>{{ highlight.label }}</h2>
+                        </div>
+                        <div class="content-card-container">
+                            <p>
+                                {% if highlight.wineProfile and highlight.wineProfile.bio and highlight.wineProfile.bio.isBio() %}
+                                    <span>{{ 'wine_profile.bio.label'|trans }}</span>
                                 {% endif %}
-                            {% endif %}
-                        </p>
-                    </div>
-                </a>
+                                {% if highlight.wineProfile and highlight.wineProfile.sulfite %}
+                                    {% if highlight.wineProfile.sulfite.isSulfite() %}
+                                        <span>{{ 'wine_profile.sulfite.with'|trans }}</span>
+                                    {% else %}
+                                        <span>{{ 'wine_profile.sulfite.without'|trans }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </section>
