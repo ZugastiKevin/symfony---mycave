@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block body %}
-    <section id="highlight-card">
-        <div class="highlight-card">
-            <div class="card">
-                {% if highlight %}
+    {% if highlight %}
+        <section id="highlight-card">
+            <div class="highlight-card">
+                <div class="card">
                     <a class="card-container" href="{{ path('bottle',{'id' : highlight.id, '_locale': app.request.locale}) }}">
                         <div class="img-card-container">
                             <img src="{{ asset('images/upload/' ~ highlight.imageName) }}" alt="Image {{ highlight.label }}">
@@ -36,10 +36,10 @@
                             </p>
                         </div>
                     </a>
-                {% endif %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
     <section id="bottles-card">
         <ul class="list-btn">
             <li><a href="{{ path('create_bottle', {'_locale': app.request.locale}) }}">{{ 'create_bottle'|trans }}</a></li>
