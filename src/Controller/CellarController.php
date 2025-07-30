@@ -39,7 +39,7 @@ final class CellarController extends AbstractController
         $bottlesInCave = $cave->getBottle();
 
         return $this->render('cellar/cellarById.html.twig', [
-            'highlight' => $highlight,
+            'highlight' => $highlight ? $highlight : null,
             'bottles' => $bottles,
             'caveBottleIds' => array_map(fn($b) => $b->getId(), $bottlesInCave->toArray()),
             'currentHighlightId' => $highlight ? $highlight->getId() : null,
