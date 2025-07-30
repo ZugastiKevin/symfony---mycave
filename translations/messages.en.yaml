@@ -86,6 +86,9 @@ form:
     describ_too_long: The description cannot exceed {{ limit }} characters.
 
 # cellar
+best: My best Wine
+cellar_of: Cellar of {{ cave.userName }}
+cellars_of: Cellar of
 wine_profile.bio.label: Organic wine, 
 wine_profile.sulfite.with: With sulfites
 wine_profile.sulfite.without: Sulfite-free
@@ -93,4 +96,10 @@ wine_profile.sulfite.without: Sulfite-free
 add_cellar: Add to my cellar
 remove_cellar: Remove to my cellar
 
-bottles: all bottles
+bottles: All bottles
+
+about: "About"
+privacy_policy: "Privacy Policy"
+legal_notice: "Legal Notice"
+terms_of_use: "Terms of Use"
+alcohol_warning: "Alcohol abuse is dangerous for your health, consume in moderation"

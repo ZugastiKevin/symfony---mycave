@@ -14,5 +14,6 @@ import './scripts/selecte-pays-regions.js';
 import './scripts/selecte-types-cepages.js';
 import './scripts/add-remove-bottle-cave.js';
 import './scripts/highlight.js';
+import './scripts/header.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

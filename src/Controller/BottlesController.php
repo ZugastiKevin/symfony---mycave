@@ -75,11 +75,15 @@ final class BottlesController extends AbstractController
     {
         $user = $this->getUser();
         $cave = $user->getCave();
-        $isInCave = $cave->getBottle()->contains($bottles);
+        $bottlesInCave = $cave->getBottle();
+
+        $highlightfind = $cave->getHighlight();
+        $highlight = $highlightfind ? $highlightfind->getBottle() : null;
 
         return $this->render('bottles/bottle.html.twig', [
             'bottle' => $bottles,
-            'isInCave' => $isInCave,
+            'caveBottleIds' => array_map(fn($b) => $b->getId(), $bottlesInCave->toArray()),
+            'currentHighlightId' => $highlight ? $highlight->getId() : null,
         ]);
     }
 

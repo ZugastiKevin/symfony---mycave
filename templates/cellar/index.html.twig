@@ -1,15 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CellarController!{% endblock %}
+{% block title %}{{ 'navbar.caves_list'|trans }}{% endblock %}
 
 {% block body %}
-
-<div class="example-wrapper">
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/symfony---mycave/src/Controller/CellarController.php</code></li>
-        <li>Your template at <code>/var/www/html/symfony---mycave/templates/cellar/index.html.twig</code></li>
-    </ul>
-</div>
+    <section id="cellar-card">
+        <div class="cellar-card">
+            {% for cave in caves %}
+                <div class="card">
+                    <a class="card-container" href="{{ path('cellar',{'id' : cave.id, '_locale': app.request.locale}) }}">
+                        <div class="title-card-container">
+                            <h3>{{ 'cellars_of'|trans }}</h3>
+                            <h2>{{ cave.user.userName }}</h2>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}
+
+

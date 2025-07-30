@@ -24,7 +24,7 @@ class WineProfile
     /**
      * @var Collection<int, Bottles>
      */
-    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfiles')]
+    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'wineProfile')]
     private Collection $bottles;
 
     #[ORM\ManyToOne(inversedBy: 'wineProfiles')]

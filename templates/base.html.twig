@@ -56,6 +56,33 @@
                                 </div>
                             {% endif %}
                         </ul>
+                        <div class="dropdown">
+                            <i class="fa-solid fa-bars"></i>
+                            <ul class="dropdown-content">
+                                {% if app.user %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <div class="admin">
+                                            <li><a href="{{ path('admin', {'_locale': app.request.locale}) }}"><span class="{{ current starts with 'admin' ? 'active' : '' }}">{{ 'admin'|trans }}</span></a></li>
+                                        </div>
+                                    {% endif %}
+                                    <div class="security">
+                                        <li><a href="{{ path('app_logout', {'_locale': app.request.locale}) }}"><span>{{ 'logout'|trans }}</span></a></li>
+                                    </div>
+                                    <div class="cellar">
+                                        <li><a href="{{ path('cellar',{id: app.user.cave.id, '_locale': app.request.locale}) }}"><span class="{{ current == 'cellar' ? 'active' : '' }}">{{ 'navbar.my_cave'|trans }}</span></a></li>
+                                        <li><a href="{{ path('cellars', {'_locale': app.request.locale}) }}"><span class="{{ current == 'cellars' ? 'active' : '' }}">{{ 'navbar.caves_list'|trans }}</span></a></li>
+                                    </div>
+                                {% else %}
+                                    <div class="cellar">
+                                        <li><a href="{{ path('cellars', {'_locale': app.request.locale}) }}"><span class="{{ current == 'cellars' ? 'active' : '' }}">{{ 'navbar.caves_list'|trans }}</span></a></li>
+                                    </div>
+                                    <div class="security">
+                                        <li><a href="{{ path('app_login', {'_locale': app.request.locale}) }}"><span class="{{ current == 'app_login' ? 'active' : '' }}">{{ 'login'|trans }}</span></a></li>
+                                        <li><a href="{{ path('create_user', {'_locale': app.request.locale}) }}"><span class="{{ current == 'create_user' ? 'active' : '' }}">{{ 'registration'|trans }}</span></a></li>
+                                    </div>
+                                {% endif %}
+                            </ul>
+                        </div>
                         <div class="language-switcher">
                             <ul>
                                 <li>
@@ -73,5 +100,30 @@
         <main>
             {% block body %}{% endblock %}
         </main>
+        <footer id="footer">
+            <div class="footer">
+                <div class="logo-footer-container">
+                    <a href="{{ path('home', {'_locale': app.request.locale}) }}"><img src="{{ asset('images/logo/mycave-logo.png') }}" alt="MyCave Logo"></a>
+                </div>
+                <div class="footer-content">
+                    <div class="footer-list">
+                        <h4>{{ 'about'|trans }}</h4>
+                        <ul>
+                            <li><a href="{{ path('confidentialite', {'_locale': app.request.locale}) }}">{{ 'privacy_policy'|trans }}</a></li>
+                            <li><a href="{{ path('mentions_legales', {'_locale': app.request.locale}) }}">{{ 'legal_notice'|trans }}</a></li>
+                            <li><a href="{{ path('cgu', {'_locale': app.request.locale}) }}">{{ 'terms_of_use'|trans }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>Contact</h4>
+                        <p>09-12-89-60-00</p>
+                        <p>Cave de</p>
+                        <p>95585 Sarcelles</p>
+                    </div>
+                </div>
+                <p>Copyright&copyMy Cave - 2025 </p>
+                <p>{{ 'alcohol_warning'|trans }}</p>
+            </div>
+        </footer>
     </body>
 </html>
